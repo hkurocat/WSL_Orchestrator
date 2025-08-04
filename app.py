@@ -124,6 +124,12 @@ class WSLOrchestrator(tk.Tk):
         button_frame.pack(fill="x")
         self.refresh_button = ttk.Button(button_frame, command=self.populate_wsl_list)
         self.refresh_button.pack(side="left", padx=5)
+
+        # ★★★ ここからが変更点 ★★★
+        self.terminal_button = ttk.Button(button_frame, command=self.open_terminal, state="disabled")
+        self.terminal_button.pack(side="left", padx=5)
+        # ★★★ ここまでが変更点 ★★★
+
         self.start_button = ttk.Button(button_frame, command=self.start_distro, state="disabled")
         self.start_button.pack(side="left", padx=5)
         self.rename_button = ttk.Button(button_frame, command=self.rename_distro, state="disabled")
@@ -159,6 +165,7 @@ class WSLOrchestrator(tk.Tk):
         self.tree.heading("State", text=self.get_string("column_state"))
         self.tree.heading("Version", text=self.get_string("column_version"))
         self.refresh_button.config(text=self.get_string("button_refresh"))
+        self.terminal_button.config(text=self.get_string("button_terminal")) # ★★★ 追加 ★★★
         self.start_button.config(text=self.get_string("button_start"))
         self.rename_button.config(text=self.get_string("button_rename"))
         self.stop_button.config(text=self.get_string("button_stop"))
@@ -175,10 +182,7 @@ class WSLOrchestrator(tk.Tk):
         self.update_ui_language()
     
     def show_about(self):
-        messagebox.showinfo(
-            self.get_string("about_title"),
-            self.get_string("about_message")
-        )
+        messagebox.showinfo(self.get_string("about_title"), self.get_string("about_message"))
 
     def run_command(self, command):
         try:
@@ -217,26 +221,48 @@ class WSLOrchestrator(tk.Tk):
         if selected_items:
             selected_item = self.tree.item(selected_items[0])
             distro_name, distro_state, _ = selected_item['values']
+            
+            # ★★★ ここからが変更点 ★★★
+            self.terminal_button.config(state="normal") # 常に有効化
+            
             if distro_state == "Stopped":
                 self.start_button.config(state="normal")
                 self.rename_button.config(state="normal")
                 self.stop_button.config(state="disabled")
-            else:
+            else: # Running or other states
                 self.start_button.config(state="disabled")
                 self.rename_button.config(state="disabled")
                 self.stop_button.config(state="normal")
+            
             if ' ' in distro_name:
                 command = f'wsl.exe -d "{distro_name}"'
             else:
                 command = f'wsl.exe -d {distro_name}'
             self.shortcut_command_var.set(command)
         else:
+            self.terminal_button.config(state="disabled") # ★★★ 追加 ★★★
             self.start_button.config(state="disabled")
             self.stop_button.config(state="disabled")
             self.rename_button.config(state="disabled")
             self.shortcut_command_var.set("")
+        # ★★★ ここまでが変更点 ★★★
+
+    # ★★★ ここからが変更点 ★★★
+    def open_terminal(self):
+        """選択されたWSLインスタンスのターミナルを開く"""
+        selected_items = self.tree.selection()
+        if not selected_items: return
+        distro_name = self.tree.item(selected_items[0])['values'][0]
+        try:
+            command_to_run = ["wsl", "-d", distro_name, "--cd", "~"]
+            subprocess.Popen(command_to_run, creationflags=subprocess.CREATE_NEW_CONSOLE)
+            # 起動と違い、状態が変わらないためリストの自動更新は不要
+        except FileNotFoundError:
+            messagebox.showerror(self.get_string("error_title"), self.get_string("error_wsl_not_found"))
+    # ★★★ ここまでが変更点 ★★★
 
     def start_distro(self):
+        """選択されたWSLインスタンスを起動します。"""
         selected_items = self.tree.selection()
         if not selected_items: return
         distro_name = self.tree.item(selected_items[0])['values'][0]
@@ -331,12 +357,10 @@ class WSLOrchestrator(tk.Tk):
             self.populate_wsl_list()
 
     def show_usb_guide(self):
-        # ★★★ ここが修正点 ★★★
         title = self.get_string("usb_guide_title")
         message = self.get_string("usb_guide_message")
         messagebox.showinfo(title, message)
 
-# --- アプリケーションのエントリーポイント ---
 if __name__ == "__main__":
     app = WSLOrchestrator()
     app.mainloop()
