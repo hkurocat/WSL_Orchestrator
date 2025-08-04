@@ -37,5 +37,6 @@
     "about_title": "À propos de WSL Orchestrator",
     "about_message": "WSL Orchestrator Version 2.1\n\nUn outil de gestion simple pour WSL.",
     "usb_guide_title": "Guide des Périphériques USB",
-    "usb_guide_message": "Veuillez vous référer à la documentation officielle de Microsoft pour 'usbipd-win' pour plus de détails."
+    "usb_guide_message": "Veuillez vous référer à la documentation officielle de Microsoft pour 'usbipd-win' pour plus de détails.",
+    "button_terminal": "Terminal"
 }

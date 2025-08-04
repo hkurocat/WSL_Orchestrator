@@ -37,5 +37,6 @@
     "about_title": "About WSL Orchestrator",
     "about_message": "WSL Orchestrator Version 2.0\n\nA simple WSL management tool.",
     "usb_guide_title": "USB Device Guide",
-    "usb_guide_message": "Please refer to the official Microsoft documentation for 'usbipd-win' for details."
+    "usb_guide_message": "Please refer to the official Microsoft documentation for 'usbipd-win' for details.",
+    "button_terminal": "Terminal"
 }

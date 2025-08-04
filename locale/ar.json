@@ -37,5 +37,6 @@
     "about_title": "حول WSL Orchestrator",
     "about_message": "WSL Orchestrator الإصدار 2.1\n\nأداة إدارة بسيطة لـ WSL.",
     "usb_guide_title": "دليل جهاز USB",
-    "usb_guide_message": "يرجى الرجوع إلى وثائق مايكروسوفت الرسمية الخاصة بـ 'usbipd-win' للحصول على التفاصيل."
+    "usb_guide_message": "يرجى الرجوع إلى وثائق مايكروسوفت الرسمية الخاصة بـ 'usbipd-win' للحصول على التفاصيل.",
+    "button_terminal": "الطرفية"
 }

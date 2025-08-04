@@ -38,5 +38,6 @@
     "about_message": "WSL Orchestrator バージョン 2.0\n\nシンプルなWSL管理ツールです。",
     "wsl_state_stopped": "停止",
     "usb_guide_title": "USBデバイス接続ガイド",
-    "usb_guide_message": "詳細については、Microsoftの公式ドキュメント'usbipd-win'を参照してください。"
+    "usb_guide_message": "詳細については、Microsoftの公式ドキュメント'usbipd-win'を参照してください。",
+    "button_terminal": "ターミナル"
 }

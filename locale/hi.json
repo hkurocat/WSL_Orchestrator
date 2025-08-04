@@ -37,5 +37,6 @@
     "about_title": "WSL Orchestrator के बारे में",
     "about_message": "WSL Orchestrator संस्करण 2.1\n\nएक सरल WSL प्रबंधन उपकरण।",
     "usb_guide_title": "यूएसबी डिवाइस गाइड",
-    "usb_guide_message": "विवरण के लिए कृपया 'usbipd-win' के लिए आधिकारिक माइक्रोसॉफ्ट दस्तावेज़ देखें।"
+    "usb_guide_message": "विवरण के लिए कृपया 'usbipd-win' के लिए आधिकारिक माइक्रोसॉफ्ट दस्तावेज़ देखें।",
+    "button_terminal": "टर्मिनल"
 }
